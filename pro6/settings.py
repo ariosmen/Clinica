@@ -100,15 +100,15 @@ DATABASES = {
     #     'HOST': 'localhost',
     #     'PORT': '5432',
     # }
-    # 'default': dj_database_url.config(
-    #     default='postgresql://postgres:postgres@localhost/postgres',
-    #     conn_max_age=600
-    # )
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost/postgres',
+        conn_max_age=600
+    )
 }
 
-DATABASES = {
-    "default" : dj_database_url.parse('postgres://clinica_hlrz_user:UTEp8WYbvkVyGUxbq7pOmtZdzxbcUmKB@dpg-ck69qsg8elhc73bo24k0-a.oregon-postgres.render.com/clinica_hlrz')
-}
+# DATABASES = {
+#     "default" : dj_database_url.parse('postgres://clinica_hlrz_user:UTEp8WYbvkVyGUxbq7pOmtZdzxbcUmKB@dpg-ck69qsg8elhc73bo24k0-a.oregon-postgres.render.com/clinica_hlrz')
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
