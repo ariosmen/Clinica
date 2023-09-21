@@ -107,7 +107,7 @@ DATABASES = {
 }
 
 # DATABASES = {
-#     "default" : dj_database_url.parse('postgres://clinica_hlrz_user:UTEp8WYbvkVyGUxbq7pOmtZdzxbcUmKB@dpg-ck69qsg8elhc73bo24k0-a.oregon-postgres.render.com/clinica_hlrz')
+#     "default" : dj_database_url.parse('postgres://clinica_ariel_hu27_user:swHzbdCdysmtuaJfum5S2dvv3Ce3de0g@dpg-ck6a6gvq54js73a5epsg-a.oregon-postgres.render.com/clinica_ariel_hu27')
 # }
 
 # Password validation
@@ -151,7 +151,6 @@ STATIC_URL = 'static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
