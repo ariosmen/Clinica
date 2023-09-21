@@ -166,3 +166,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'arielmendezcantautor@gmail.com'
 EMAIL_HOST_PASSWORD = 'owvbwvosxuojeohl'
 EMAIL_USE_TLS = True
+
