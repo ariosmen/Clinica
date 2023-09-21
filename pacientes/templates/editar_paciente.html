@@ -1,0 +1,152 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Editar Paciente {% endblock %}
+
+{% block content %}
+
+<div class="edit-paciente">
+    
+    <a href="{% url 'pacientes' %}" class=" w-25 mx-3 mt-2 link-editar">Volver</a>
+    <h2 class="text-center mb-3 ">Editar Paciente</h2>
+    <div class="caja-paciente">
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-9 col-6">
+                            {{ form.activo | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3 col-6 text-end">
+                            <a href="{% url 'eliminar_paciente' paciente.id %}" class="link-eliminar">Eliminar
+                                Paciente</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            {{ form.nombre | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.apellido | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.dni | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.sexo | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            {{ form.direccion | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.telefono | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.email | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.estado_civil | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            {{ form.fecha_nacimiento | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-3">
+                            {{ form.obra_social | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="d-flex justify-content-center w-100 mt-4">
+                                <a href="{% url 'historiaclinica' paciente.id %}" class="btn btn-warning">Historia
+                                    Clinica</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="d-flex justify-content-center w-100 mt-4">
+                                    <a href="{% url 'ingreso' paciente.id %}" class="btn btn-warning ">Nuevo Ingreso</a>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="d-flex justify-content-center w-100 mt-4">
+                                <a class="text-decoration-none btn btn-info" href="{% url 'registrar_turnos' paciente.id %}">Nuevo Turno</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="d-flex justify-content-center w-100 mt-4">
+                                <input type="submit" value="Guardar" class="btn btn-success">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="caja-alerta">
+                        {% if request.POST %}
+                        {% if valid %}
+                        <div>
+                            <br><br>
+                        </div>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Se ha guardado correctamente</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% else %}
+                        <div>
+                            <br><br>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>No se ha podido crear, verifique la información</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div class="row mx-auto mt-2">
+            <h1 class="text-center">Turnos</h1>
+            <hr>
+            <div class="tarjeta-turno d-flex flex-column gap-4">
+                {% for turno in turnos %}
+                <div class="card">
+
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <p>Dia: <span class="texto-hc">{{ turno.fecha | date:"d/m/Y"}}</span></p>
+                            <div class="text-endpx-3">
+                                <p class="d-flex gap-2">
+                                    <a href="{% url 'editar_turnos' turno.id paciente.id %}">
+                                        <img src="{% static 'edit.png' %}" alt="" width="30px">
+                                    </a>
+                                    <a href="{% url 'eliminar_turnos' turno.id paciente.id %}">
+                                        <img src="{% static 'delete.png' %}" alt="" width="30px">
+                                    </a>
+                                </p>
+                            </div>
+
+                        </div>
+                        <p>Hora: <span class="texto-hc">{{ turno.hora }}</span></p>
+                        <p>Medico: <span class="texto-hc">{{ turno.medico }}</span></p>
+                        <p>Espacialidad: <span class="texto-hc">{{ turno.especialidad }}</span></p>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+{% endblock %}

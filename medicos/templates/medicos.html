@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %} Medicos {% endblock %}
+
+{% block content %}
+<div class="caja-medicos">
+
+    <div class="col-lg-4 col-12">
+        <a href="{% url 'registrar_medico' %}" class="btn btn-warning">Registrar Medico</a>
+    </div>
+
+    <div class="col-lg-12 mt-2">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-center">Listado de Medicos</h3>
+                <div class="caja-scroll">
+                    <table class="table text-center table-hover">
+                        <thead class="table-success">
+                            <td>Estado</td>
+                            <td>Medico</td>
+                            <td>Especialidad</td>
+                        </thead>
+                        {% if medicos %}
+                        {% for medico in medicos %}
+                        <tbody>
+                            <tr>
+                                <td>{% if medico.activo %}
+                                    <img src="{% static 'check.png'%}" alt="" class="check">
+                                    {% else %}
+                                    <img src="{% static 'cross.png'%}" alt="" class="check">
+                                    {%endif%}
+                                </td>
+                                <td>
+                                    <a href="{% url 'editar_medico' medico.id %}" class="link-editar">{{medico.apellido}} {{ medico.nombre}}</a>
+                                    </td>
+                                <td>
+                                    {{ medico.especialidad }}
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                        {% else %}
+                        <h1>No hay medicos</h1>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="caja-alerta">
+    {% if request.POST %}
+    {% if valid %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Se ha cargado correctamente</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}

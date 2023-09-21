@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block title %} Ingreso de Paciente a la Clinica{% endblock %}
+    
+
+{% block content %}
+
+<div class="col-lg-12 col-md-12 col-sm-12 w-75 mx-auto mt-5">
+    <h4>Paciente: {{paciente}}</h4>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 w-75 mx-auto mt-5">
+    <div class="card">
+        <div class="card-body">
+            <form action="" method="post">{% csrf_token %}
+                <div class="row">
+                    <div class="col-6 visually-hidden">
+                        {{ form.paciente | as_crispy_field }}
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        {{ form.medico | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form.descripcion | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12">
+                        <button class="btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

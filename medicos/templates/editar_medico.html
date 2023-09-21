@@ -1,0 +1,108 @@
+{% extends 'base/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Editar Medico {% endblock %}
+    
+{% block content %}
+
+<div class="row w-100 mx-auto">
+    <div class="col-12 col-lg-6 offset-md-3">
+        <h2 class="text-center mb-4 mt-4">Editar Medico</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="" method="post">{% csrf_token %}
+                    <div class="row ">
+                        <div class="col-lg-10 col-6">
+                            {{ form.activo | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-2 col-6 text-end">
+                            <a href="{% url 'eliminar_medico' medico.id %}" class="link-eliminar">Eliminar</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            {{ form.nombre | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.apellido | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.dni | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            {{ form.direccion | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.telefono | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.email | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            {{ form.estado_civil | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.especialidad | as_crispy_field }}
+                        </div>
+                        <div class="col-lg-4 col-12">
+                            {{ form.sexo | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-12">
+                            {{ form.fecha_nacimiento | as_crispy_field }}
+                        </div>
+                        
+                        <div class="col-lg-8 col-12">
+                            <div class="d-flex justify-content-center w-100 mt-4">
+                                <button type="submit" value="Guardar" class="btn btn-success">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form action="" method="post">{% csrf_token %}
+                    <div class="row">
+                        
+                        <div class="col-lg-8 col-12">
+                            {% if request.POST %}
+                            {% if valid %}
+                            <div>
+                                <br><br>
+                            </div>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <strong>Se ha cargado correctamente</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% else %}
+
+                            {% if form.nombre == ' ' %}
+                            <div>
+                                <br><br>
+                            </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>No se ha podido crear, verifique la información</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% else %}
+                            <div></div>
+                            {% endif %}
+
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Pacientes{% endblock %}
+
+{% block content %}
+
+<div class="mx-auto mt-3 pacientes">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <a href="{% url 'registrar_paciente' %}" class="btn btn-warning">Registrar Paciente</a>
+            </div>
+            <div class="col-lg-4 col-sm-12 mt-2">
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <form action="{% url 'busqueda' %}" class="d-flex" role="search" method="post">{% csrf_token %}
+                    <input class="form-control me-2 input-search" type="number" placeholder="Busqueda por DNI"
+                        aria-label="Search" name="buscador">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-body">
+                <h3 class="text-center">Listado de Pacientes</h3>
+                <div class="caja-scroll">
+                    <table class="table text-center table-hover">
+                        <thead class="table-success">
+                            <td>Estado</td>
+                            <td>Paciente</td>
+                            <td>DNI</td>
+                            <td>Telefono</td>
+                        </thead>
+                        {% if pacientes %}
+                        {% for paciente in pacientes %}
+                        <tbody class="table-register">
+                            <tr>
+                                <td>{% if paciente.activo %}
+                                    <img src="{% static 'check.png'%}" alt="" class="check">
+                                    {% else %}
+                                    <img src="{% static 'cross.png'%}" alt="" class="check">
+                                    {%endif%}
+                                </td>
+                                <td><a href="{% url 'editar_paciente' paciente.id %}" class="link-editar">{{paciente.apellido}} {{ paciente.nombre}}</a></td>
+                                <td>{{ paciente.dni}}</td>
+                                <td>{{ paciente.telefono}}</td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+                        {% else %}
+                        <h1>No hay pacientes</h1>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="caja-alerta">
+    {% if request.POST %}
+        {% if valid %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Se ha cargado correctamente</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% else %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>No hay un paciente registrado con ese DNI</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
